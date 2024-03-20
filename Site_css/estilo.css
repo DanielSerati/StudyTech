@@ -5,15 +5,29 @@ body {
 }
 
 header {
-    background-color: #333;
+    background: linear-gradient(to bottom, #000000, #333333); /* Gradiente de cima para baixo */
     color: #fff;
     padding: 20px;
-    text-align: center;
+    display: flex; /* Adicionando flex display */
+    justify-content: space-between; /* Alinhando os itens ao longo do eixo principal */
+    align-items: center; /* Alinhando os itens ao longo do eixo transversal */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Adicionando uma sombra para destacar o header */
+}
+
+h1 {
+    background: linear-gradient(to right, #007bff, #ff69b4); /* Gradiente azul para rosa */
+    padding: 10px 0; /* Adicionando algum espaço em torno do texto */
+    border-radius: 5px; /* Arredondando as bordas */
+    margin-right: auto; /* Empurrando o h1 para o extremo esquerdo do header */
+    -webkit-background-clip: text; /* Aplicando o gradiente apenas no texto */
+    background-clip: text; /* Aplicando o gradiente apenas no texto */
+    color: transparent; /* Tornando o texto transparente para que o gradiente seja visível */
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
+    display: flex; /* Usando flex para alinhar os itens da lista lado a lado */
 }
 
 nav ul li {
@@ -21,9 +35,75 @@ nav ul li {
     margin-right: 20px;
 }
 
+nav ul li:last-child {
+    margin-right: 0; /* Removendo a margem direita do último item da lista */
+}
+
 nav ul li a {
     color: #fff;
     text-decoration: none;
+}
+
+.search-form {
+    margin-left: auto; /* Empurra o formulário de pesquisa para o final do header */
+    background-color: transparent;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: transparent; /* Barra de pesquisa transparente */
+    border-radius: 20px; /* Bordas redondas */
+    padding: 5px; /* Espaçamento interno */
+    border: 2px solid #ccc; /* Adicionando uma borda para destacar a barra */
+}
+
+.search-container input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 20px; /* Bordas redondas */
+    background-color: transparent; /* Tornando o input transparente */
+}
+
+.search-container button {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    color: #ffffff; /* Defina a cor do texto do botão */
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 5px; /* Espaçamento entre o campo de entrada e o botão */
+    background: none; /* Garante que o fundo seja transparente */
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 5px;
+    border: 2px solid #ccc;
+}
+
+.search-txt {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 20px;
+    background-color: transparent;
+}
+
+.search-btn {
+    padding: 0; /* Ajuste para remover o preenchimento padrão do botão */
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.search-btn img {
+    height: 30px;
+    width: 30px;
 }
 
 main {

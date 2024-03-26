@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTech - Plataforma de Estudos</title>
+    <link rel="stylesheet" href="../CSS/Matricular_Se.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1><span class="study">Study</span><span class="tech">Tech</span></h1>
+            <a href="#" class="enroll-button" onclick="showPricing()">Matricular-se</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <p>Plataforma de Estudos</p>
+        <p>Estude de forma eficiente com a StudyTech. Tenha acesso a recursos educacionais de alta qualidade.</p>
+        <a href="#" class="cta-button">Comece Agora</a>
+        
+        <!-- Div para mostrar o preço ao clicar em "Matricule-se" -->
+        <div id="pricing" class="pricing-info" style="display: none;">
+            <h2>Básico</h2>
+            <p>De R$ 1.800 por 12x R$109 à vista R$1.308</p>
+            <p>Acesso a TODOS os cursos da StudyTech</p>
+            <p>StudyTech Challenges</p>
+            <p>Certificado</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>2024 StudyTech. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para mostrar e ocultar o preço ao clicar em "Matricule-se"
+        function showPricing() {
+            var pricingDiv = document.getElementById("pricing");
+            if (pricingDiv.style.display === "none") {
+                pricingDiv.style.display = "block";
+            } else {
+                pricingDiv.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+

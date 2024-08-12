@@ -1,14 +1,15 @@
-export class Curso{
+export class Curso {
     id: number;
     nome: string;
-    area: string; 
-    descricao:string;
+    area: string;
+    descricao: string;
     nivel: string;
     duracao: string;
     valor: number;
+    nomeProfessor: string;
     idProfessor: number;
 
-    constructor(id?:number, nome?: string, area?: string, descricao?: string, nivel?: string, duracao?: string, valor?: number, idProfessor?: number){
+    constructor(id?: number, nome?: string, area?: string, descricao?: string, nivel?: string, duracao?: string, valor?: number, nomeProfessor?: string, idProfessor?: number) {
         this.id = id || 0;
         this.nome = nome || '';
         this.area = area || '';
@@ -16,6 +17,7 @@ export class Curso{
         this.nivel = nivel || '';
         this.duracao = duracao || '';
         this.valor = valor || 0;
+        this.nomeProfessor = nomeProfessor || '';
         this.idProfessor = idProfessor || 0;
     }
 }

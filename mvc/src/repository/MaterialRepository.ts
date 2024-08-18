@@ -1,5 +1,6 @@
 import { executarComandoSQL } from "../database/mysql";
-import { Material } from "../model/Material";
+import { Curso } from "../model/entity/Curso";
+import { Material } from "../model/entity/Material";
 
 export class MaterialRepository {
 
@@ -18,14 +19,13 @@ export class MaterialRepository {
 
     private async createTable() {
         const query = `CREATE TABLE IF NOT EXISTS StudyTech.Material (
-                        id INT NOT NULL AUTO_INCREMENT,
-                        nome VARCHAR2() NOT NULL,
-                        descricao VARCHAR2() NOT NULL
-                        formato VARCHAR2() NOT NULL
-                        link VARCHAR2() NOT NULL,
-                        idCurso INT() NOT NULL,
-                        PRIMARY KEY (id),
-                        FOREING KEY (idCurso) REFERENCES Curso(curso)
+                        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                        nome VARCHAR2(255) NOT NULL,
+                        descricao VARCHAR2(255) NOT NULL,
+                        formato VARCHAR2(255) NOT NULL,
+                        link VARCHAR2(255) NOT NULL,
+                        idCurso INT NOT NULL,
+                        FOREIGN KEY (idCurso) REFERENCES studyTech.Curso(id)
                         )`;
         try {
             const resultado = await executarComandoSQL(query, []);
@@ -48,20 +48,21 @@ export class MaterialRepository {
         }
     }
 
-    async getMaterialByNameIdFormato(nome?: string, id?: number, formato?: string): Promise<Material[]> {
+    async getMaterialByNameIdFormato(material: Material): Promise<Material[]> {
         let query = `SELECT * FROM StudyTech.Material WHERE`;
         const params: any[] = [];
 
-        if (nome) {
-            query += "name = ?"
-            params.push(nome);
+        if (material.nome) {
+            query += " name = ?";
+            params.push(material.nome);
         }
-        if (id) {
+        if (material.id) {
             query += (params.length ? " AND" : "") + " id = ?";
-            params.push(id);
+            params.push(material.id);
         }
-        if (formato) {
+        if (material.formato) {
             query += (params.length ? " AND" : "") + " formato = ?";
+            params.push(material.formato);
         }
         if (params.length === 0) {
             throw new Error("Insira no minimo um parametro(id, nome ou formato)");
@@ -80,33 +81,38 @@ export class MaterialRepository {
     async getAll(): Promise<Material[]> {
         const query = "SELECT * FROM StudyTech.Material";
         try {
-            const resultado: Material[] = await executarComandoSQL(query, [])
-            console.log("Sucesso ao listar os Materiais: ",)
-            return resultado;
-        } catch (err) {
+            const resultado: Material[] = await executarComandoSQL(query, []);
+            return new Promise<Material[]>((resolve) => {
+                resolve(resultado);
+            });
+        } catch (err: any) {
             console.error("Não foi possivel listar os Materiais: ", err);
             throw err;
         }
     }
 
-    async updateMaterial(material: Material): Promise<void> {
+    async updateMaterial(material: Material): Promise<Material> {
         const query = "UPDATE StudyTech.Material SET nome = ?, link = ? WHERE id = ?";
         try {
-            await executarComandoSQL(query, [material.nome, material.link, material.id]);
+            const resultado = await executarComandoSQL(query, [material.nome, material.link, material.id]);
             console.log("Material alterado com sucesso: ", material.id);
+            return new Promise<Material>((resolve) => {
+                resolve(resultado);
+            })
         } catch (err) {
             console.error("Não foi possivel alterar dados do Material (Id: " + material.id + "): ", err);
             throw err;
         }
     }
 
-    async deleteMaterial(id?: number): Promise<void> {
+    async deleteMaterial(material: Material): Promise<Material> {
+        const query = "DELETE FROM StudyTech.Material WHERE id = ?";
         try {
-            const query = "DELETE FROM StudyTech.Material WHERE id = ?";
-            await executarComandoSQL(query, [id])
-            console.log("Material removido com sucesso: ", id);
-        } catch (err) {
-            console.error("Não foi possivel remover o Material: ", err);
+            await executarComandoSQL(query, [material.id])
+            console.log("Material removido com sucesso: ", material);
+            return material;
+        } catch (err: any) {
+            console.error(`Não foi possivel remover o Material: ${material.id}`, err);
             throw err;
         }
     }

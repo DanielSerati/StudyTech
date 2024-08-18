@@ -1,5 +1,6 @@
 import { executarComandoSQL } from "../database/mysql";
-import { Professor } from "../model/Professor";
+import { Curso } from "../model/entity/Curso";
+import { Professor } from "../model/entity/Professor";
 
 export class ProfessorRepository {
 
@@ -18,17 +19,16 @@ export class ProfessorRepository {
 
     private async createTable() {
         const query = `CREATE TABLE IF NOT EXISTS StudyTech.Professor (
-                        id INT NOT NULL AUTO_INCREMENT,
-                        nome VARCHAR2() NOT NULL,
-                        sobrenome VARCHAR2() NOT NULL,
-                        dataNascimento DATE NOT NULL;
-                        cpf INT() NOT NULL
-                        email VARCHAR2() NOT NULL,
-                        matricula VARCHAR2() NOT NULL,
-                        senha VARCHAR2() NOT NULL,
-                        idCurso INT() NOT NULL,
-                        PRIMARY KEY (id),
-                        FOREING KEY (idCurso) REFERENCES Curso(curso)
+                        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                        nome VARCHAR2(255) NOT NULL,
+                        sobrenome VARCHAR2(255) NOT NULL,
+                        dataNascimento DATE NOT NULL,
+                        cpf VARCHAR2(11) NOT NULL,
+                        email VARCHAR2(255) NOT NULL,
+                        matricula VARCHAR2(12) NOT NULL,
+                        senha VARCHAR2(255) NOT NULL,
+                        idCurso INT NOT NULL,
+                        FOREIGN KEY (idCurso) REFERENCES studyTech.Curso(id)
                         )`;
         try {
             const resultado = await executarComandoSQL(query, []);
@@ -41,30 +41,36 @@ export class ProfessorRepository {
 
     async insertProfessor(professor: Professor): Promise<Professor> {
         try {
-            const resultado = await executarComandoSQL("INSERT INTO StudyTech.Curso (id, nome, sobrenome, dataNascimento, cpf, email, matricula, senha, idCurso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [professor.id, professor.nome, professor.sobrenome, professor.dataNascimento, professor.cpf, professor.email, professor.matricula, professor.senha, professor.idCurso]);
+            const resultado = await executarComandoSQL("INSERT INTO StudyTech.Curso (nome, sobrenome, dataNascimento, cpf, email, matricula, senha, idCurso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [professor.id, professor.nome, professor.sobrenome, professor.dataNascimento, professor.cpf, professor.email, professor.matricula, professor.senha, professor.idCurso]);
             professor.id = resultado.insertId;
             console.log("Professor cadastrado com sucesso: ", professor);
-            return professor;
-        } catch (err) {
-            console.error("Erro ao cadastrar professor: ", err)
-            throw err
+            return new Promise<Professor>((resolve) => {
+                resolve(professor);
+            })
+        } catch (err: any) {
+            console.error(`Erro ao cadastrar professor: ${professor.nome}  ${professor.sobrenome}`, err)
+            throw err;
         }
     }
 
-    async getProfessorByNameId(nome?: string, id?: number): Promise<Professor[]> {
+    async getProfessorByNameIdCPF(professor: Professor): Promise<Professor[]> {
         let query = `SELECT * FROM StudyTech.Professor WHERE`;
         const params: any[] = [];
 
-        if (nome) {
-            query += "name = ?"
-            params.push(nome);
+        if (professor.nome) {
+            query += " name = ?";
+            params.push(professor.nome);
         }
-        if (id) {
+        if (professor.cpf) {
+            query += (params.length ? " AND" : "") + " cpf = ?";
+            params.push(professor.cpf);
+        }
+        if (professor.id) {
             query += (params.length ? " AND" : "") + " id = ?";
-            params.push(id);
+            params.push(professor.id);
         }
         if (params.length === 0) {
-            throw new Error("Insira no minimo um parametro(id ou nome)");
+            throw new Error("Insira no minimo um parametro(id ou nome ou cpf)");
         }
 
         try {
@@ -80,32 +86,70 @@ export class ProfessorRepository {
     async getAll(): Promise<Professor[]> {
         const query = "SELECT * FROM StudyTech.Professor";
         try {
-            const resultado: Professor[] = await executarComandoSQL(query, [])
-            console.log("Sucesso ao listar os professores: ",)
-            return resultado;
-        } catch (err) {
+            const resultado = await executarComandoSQL(query, [])
+            return new Promise<Professor[]>((resolve) => {
+                resolve(resultado);
+            })
+
+        } catch (err: any) {
             console.error("Não foi possivel listar os professores: ", err);
             throw err;
         }
     }
 
-    async updateCurso(professor: Professor): Promise<void> {
-        const query = "UPDATE StudyTech.Professor SET email = ?, matricula = ? senha = ?, idCurso= ? WHERE id = ?";
+    async updateProfessor(professor: Professor): Promise<Professor> {
+        let query = "UPDATE StudyTech.Professor SET";
+        const params: any[] = [];
+
+        if (professor.nome !== undefined) {
+            query += " nome = ?";
+            params.push(professor.nome);
+
+        }
+        if (professor.sobrenome !== undefined) {
+            query += (params.length ? ", " : "") + " sobrenome = ?";
+            params.push(professor.sobrenome);
+        }
+        if (professor.email !== undefined) {
+            query += (params.length ? ", " : "") + " email = ?";
+            params.push(professor.email);
+        }
+        if (professor.senha !== undefined) {
+            query += (params.length ? ", " : "") + " senha = ?";
+            params.push(professor.senha);
+        }
+        if (professor.idCurso !== undefined) {
+            query += (params.length ? ", " : "") + " idCurso = ?";
+            params.push(professor.idCurso);
+        }
+        if (params.length === 0) {
+            throw new Error("Nenhum campo para atualizar.");
+        }
+        query += " WHERE = ?"
+        params.push(professor.id);
+
         try {
-            await executarComandoSQL(query, [professor.email, professor.matricula, professor.senha, professor.idCurso, professor.id]);
+            const resultado = await executarComandoSQL(query, params);
             console.log("Dados do professor atualizados com sucesso: ", professor.id);
+            return new Promise<Professor>((resolve) => {
+                resolve(resultado);
+            })
         } catch (err) {
             console.error("Não foi possivel atualizar dados do professor (Id: " + professor.id + "): ", err);
             throw err;
         }
     }
 
-    async deleteProfessor(id?: number): Promise<void> {
+    async deleteProfessor(professor: Professor): Promise<Professor> {
         try {
-            const query = "DELETE FROM StudyTech.Professor WHERE id = ?";
-            await executarComandoSQL(query, [id])
-            console.log("Professor removido com sucesso: ", id);
-        } catch (err) {
+            const query = "DELETE FROM StudyTech.Professor WHERE id = ? AND nome = ? AND cpf = ? ";
+            const resultado = await executarComandoSQL(query, [professor.id, professor.nome, professor.cpf]);
+            console.log("Professor removido com sucesso: ", professor.nome);
+            return new Promise<Professor>((resolve) => {
+                resolve(resultado);
+            });
+
+        } catch (err: any) {
             console.error("Não foi possivel remover o professor: ", err);
             throw err;
         }

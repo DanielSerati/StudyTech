@@ -1,0 +1,1226 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ProfessorRequestDto": {
+				"properties": {
+					"nome": {
+						"type": "string"
+					},
+					"sobrenome": {
+						"type": "string"
+					},
+					"dataNascimento": {
+						"type": "string"
+					},
+					"cpf": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"matricula": {
+						"type": "string"
+					},
+					"senha": {
+						"type": "string"
+					},
+					"idCurso": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"nome",
+					"sobrenome",
+					"dataNascimento",
+					"cpf",
+					"email",
+					"matricula",
+					"senha",
+					"idCurso"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BasicResponseDto": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"object": {}
+				},
+				"required": [
+					"message",
+					"object"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ProfessorDto": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"nome": {
+						"type": "string"
+					},
+					"sobrenome": {
+						"type": "string"
+					},
+					"dataNascimento": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"cpf": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"matricula": {
+						"type": "string"
+					},
+					"senha": {
+						"type": "string"
+					},
+					"idCurso": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"nome",
+					"sobrenome",
+					"dataNascimento",
+					"cpf",
+					"email",
+					"matricula",
+					"senha",
+					"idCurso"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MaterialRequestDto": {
+				"properties": {
+					"nome": {
+						"type": "string"
+					},
+					"descricao": {
+						"type": "string"
+					},
+					"formato": {
+						"type": "string"
+					},
+					"link": {
+						"type": "string"
+					},
+					"idCurso": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"nome",
+					"descricao",
+					"formato",
+					"link",
+					"idCurso"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MaterialDto": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"nome": {
+						"type": "string"
+					},
+					"descricao": {
+						"type": "string"
+					},
+					"formato": {
+						"type": "string"
+					},
+					"link": {
+						"type": "string"
+					},
+					"idCurso": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"nome",
+					"descricao",
+					"formato",
+					"link",
+					"idCurso"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CursoRequestDto": {
+				"properties": {
+					"nome": {
+						"type": "string"
+					},
+					"area": {
+						"type": "string"
+					},
+					"descricao": {
+						"type": "string"
+					},
+					"nivel": {
+						"type": "string"
+					},
+					"duracao": {
+						"type": "string"
+					},
+					"valor": {
+						"type": "number",
+						"format": "double"
+					},
+					"nomeProfessor": {
+						"type": "string"
+					},
+					"idProfessor": {
+						"type": "number",
+						"format": "double"
+					},
+					"idMaterial": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CursoDto": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"nome": {
+						"type": "string"
+					},
+					"area": {
+						"type": "string"
+					},
+					"descricao": {
+						"type": "string"
+					},
+					"nivel": {
+						"type": "string"
+					},
+					"duracao": {
+						"type": "string"
+					},
+					"valor": {
+						"type": "number",
+						"format": "double"
+					},
+					"nomeProfessor": {
+						"type": "string"
+					},
+					"idProfessor": {
+						"type": "number",
+						"format": "double"
+					},
+					"idMaterial": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"nome",
+					"area",
+					"descricao",
+					"nivel",
+					"duracao",
+					"valor",
+					"nomeProfessor",
+					"idProfessor",
+					"idMaterial"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "API Documentação",
+		"version": "1.0.0",
+		"description": "Documentação da API usando Swagger"
+	},
+	"paths": {
+		"/professor": {
+			"post": {
+				"operationId": "CadastrarProfessor",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Professor"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ProfessorRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "AtualizarProfessor",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Professor"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ProfessorDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletarProfessor",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Professor"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ProfessorDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/professor/id/{id}": {
+			"get": {
+				"operationId": "FiltrarPorId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Professor"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/professor/nome": {
+			"get": {
+				"operationId": "FiltrarPorNome",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Professor"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "nome",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/professor/cpf": {
+			"get": {
+				"operationId": "FiltrarPorFormato",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Professor"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "formato",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/professor/all": {
+			"get": {
+				"operationId": "ListarProfessores",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Professor"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/material": {
+			"post": {
+				"operationId": "CadastrarMaterial",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Material"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MaterialRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "AtualizarMaterial",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Material"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MaterialDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletarMaterial",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Material"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MaterialDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/material/id/{id}": {
+			"get": {
+				"operationId": "FiltrarPorId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Material"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/material/nome": {
+			"get": {
+				"operationId": "FiltrarPorNome",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Material"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "nome",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/material/formato": {
+			"get": {
+				"operationId": "FiltrarPorFormato",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Material"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "formato",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/material/all": {
+			"get": {
+				"operationId": "ListarMateriais",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Material"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/curso": {
+			"post": {
+				"operationId": "CadastrarCurso",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CursoRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "AtualizarCurso",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CursoDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletarCurso",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CursoDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/curso/id/{id}": {
+			"get": {
+				"operationId": "FiltrarPorId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/curso/professor": {
+			"get": {
+				"operationId": "FiltrarPorProfessor",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "nomeProf",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/curso/nome": {
+			"get": {
+				"operationId": "FiltrarPorNome",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "nome",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/curso/area": {
+			"get": {
+				"operationId": "FiltrarPorArea",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "nomeProf",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/curso/all": {
+			"get": {
+				"operationId": "ListarCursos",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Curso"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3040/api",
+			"description": "Servidor StudyTech"
+		}
+	]
+}
